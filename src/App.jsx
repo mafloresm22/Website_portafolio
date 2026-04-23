@@ -4,7 +4,7 @@ import AOS from "aos"
 import "aos/dist/aos.css"
 
 const App = () => {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
     AOS.init({
@@ -12,7 +12,6 @@ const App = () => {
       once: false,
       offset: 100,
     });
-    document.documentElement.classList.add('dark');
   }, []);
 
   const toggleDarkMode = () => {
