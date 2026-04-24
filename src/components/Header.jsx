@@ -1,10 +1,13 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Download, Mail, MessageSquare, ArrowRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Download, Mail, MessageSquare, ArrowRight, FileText } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 import personalImg from '../assets/images/image_personal.png';
+import Documents from './documents/documents';
 
 const Header = ({ darkMode }) => {
+    const [showDocs, setShowDocs] = useState(false);
+
     // Animation Variants
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -64,26 +67,27 @@ const Header = ({ darkMode }) => {
                         </motion.p>
 
                         <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4">
-                            <motion.button
+                            <motion.a
+                                href="/documents/CV_Mathias_Flores.pdf"
+                                download="CV_Mathias_Flores.pdf"
                                 whileHover={{ scale: 1.02, y: -2 }}
                                 whileTap={{ scale: 0.98 }}
-                                className="group flex items-center justify-center gap-2 px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl font-bold text-lg transition-all shadow-lg shadow-indigo-500/25"
+                                className="group flex items-center justify-center gap-2 px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl font-bold text-lg transition-all shadow-lg shadow-indigo-500/25 cursor-pointer"
                             >
                                 <Download size={22} className="group-hover:bounce" />
                                 Descargar CV
-                            </motion.button>
+                            </motion.a>
 
                             <motion.button
+                                onClick={() => setShowDocs(true)}
                                 whileHover={{ scale: 1.02, y: -2 }}
                                 whileTap={{ scale: 0.98 }}
                                 className="group flex items-center justify-center gap-2 px-8 py-4 border-2 border-slate-200 dark:border-slate-800 hover:border-indigo-600 dark:hover:border-indigo-500 text-slate-700 dark:text-slate-200 rounded-2xl font-bold text-lg transition-all"
                             >
-                                <MessageSquare size={22} />
-                                Contáctame
-                                <ArrowRight size={18} className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                                <FileText size={22} />
+                                Ver Documentos
                             </motion.button>
                         </motion.div>
-
                     </motion.div>
 
                     {/* Image Side */}
@@ -98,37 +102,42 @@ const Header = ({ darkMode }) => {
                             <div className="absolute -inset-4 border-2 border-dashed border-indigo-500/20 rounded-[2rem] animate-[spin_20s_linear_infinite]" />
                             <div className="absolute -inset-8 border border-purple-500/10 rounded-[3rem] animate-[spin_30s_linear_infinite_reverse]" />
 
-                            {/* Main Image Container */}
-                            <div className="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-[450px] lg:h-[450px] rounded-[2.5rem] overflow-hidden bg-slate-100 dark:bg-slate-800 border-4 border-white dark:border-slate-900 shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]">
+                            <div className="relative z-10 w-64 h-64 md:w-80 md:h-80 lg:w-[400px] lg:h-[400px] rounded-[2.5rem] overflow-hidden border-4 border-white dark:border-slate-800 shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]">
                                 <img
                                     src={personalImg}
-                                    alt="Mathias Flores Moya"
-                                    className="w-full h-full object-cover object-center transform transition-all duration-700 group-hover:scale-110"
+                                    alt="Mathias Flores"
+                                    className="w-full h-full object-cover"
                                 />
-
                                 {/* Overlay Gradient */}
                                 <div className="absolute inset-0 bg-linear-to-t from-indigo-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                             </div>
-
-                            {/* Stats Badge */}
-                            <motion.div
-                                animate={{ y: [0, -10, 0] }}
-                                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                                className="absolute -bottom-6 -left-6 md:-left-12 bg-white dark:bg-slate-900 p-5 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-800 flex items-center gap-4 z-20"
-                            >
-                                <div className="w-12 h-12 bg-indigo-100 dark:bg-indigo-500/20 rounded-xl flex items-center justify-center text-indigo-600 dark:text-indigo-400">
-                                    <GithubIcon size={28} className={darkMode ? 'invert brightness-200' : ''} />
-                                </div>
-                                <div>
-                                    <div className="text-2xl font-bold text-slate-900 dark:text-white">100+</div>
-                                    <div className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Commits / Mes</div>
-                                </div>
-                            </motion.div>
                         </div>
                     </motion.div>
-
                 </div>
             </div>
+
+            {/* Documents Modal */}
+            <AnimatePresence>
+                {showDocs && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setShowDocs(false)}
+                            className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
+                        />
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                            className="relative w-full max-w-2xl bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-800"
+                        >
+                            <Documents onClose={() => setShowDocs(false)} darkMode={darkMode} />
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
         </section>
     );
 };

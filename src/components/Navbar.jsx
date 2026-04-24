@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Sun, Moon, ExternalLink, Home, User, Briefcase, Mail } from 'lucide-react';
+import { Menu, X, Sun, Moon, ExternalLink, Home, User, Briefcase, Mail, Cpu } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 
 // --- Constants & Config ---
 const NAV_ITEMS = [
     { name: 'Inicio', href: '#inicio', icon: Home },
     { name: 'Sobre mí', href: '#acerca-de-mi', icon: User },
+    { name: 'Habilidades', href: '#habilidades', icon: Cpu },
     { name: 'Proyectos', href: '#proyectos', icon: Briefcase },
     { name: 'Contacto', href: '#contacto', icon: Mail },
 ];

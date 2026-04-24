@@ -5,7 +5,7 @@ import personalImg02 from '../assets/images/image_personal_02.png';
 const AcercaDeMi = ({ darkMode }) => {
     const skills = [
         { name: 'Frontend', items: ['React.js', 'Tailwind CSS', 'TypeScript'] },
-        { name: 'Backend', items: ['Laravel', 'PHP', 'Supabase'] },
+        { name: 'Backend', items: ['Python', 'PHP', 'Supabase'] },
         { name: 'Frameworks', items: ['Laravel', 'Next.js'] },
         { name: 'Otros', items: ['y Más...'] },
     ];
