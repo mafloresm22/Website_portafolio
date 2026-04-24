@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Download, Mail, MessageSquare, ArrowRight, FileText } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 import personalImg from '../assets/images/image_personal.png';
-import Documents from './documents/documents';
+import Documents from './documents/documents_modal';
 
 const Header = ({ darkMode }) => {
     const [showDocs, setShowDocs] = useState(false);
