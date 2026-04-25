@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { User, Code2, GraduationCap, Sparkles, Heart } from 'lucide-react';
+import { GraduationCap, Sparkles } from 'lucide-react';
 import personalImg02 from '../assets/images/image_personal_02.png';
 
 const AcercaDeMi = ({ darkMode }) => {
@@ -13,9 +13,9 @@ const AcercaDeMi = ({ darkMode }) => {
     return (
         <section
             id="acerca-de-mi"
-            className="py-24 px-6 relative overflow-hidden bg-white dark:bg-slate-900/40 rounded-t-[3rem] md:rounded-t-[5rem] shadow-[0_-20px_50px_-20px_rgba(0,0,0,0.1)] border-t border-slate-100 dark:border-slate-800 z-10"
+            className="py-24 px-6 relative overflow-hidden bg-white dark:bg-slate-900/40 rounded-[3rem] md:rounded-[5rem] shadow-[0_0_50px_-20px_rgba(0,0,0,0.1)] border border-slate-100 dark:border-slate-800 z-10"
         >
-            {/* Patrón de fondo sutil */}
+            {/* Fondo */}
             <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none"
                 style={{ backgroundImage: 'radial-gradient(#4f46e5 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
 
@@ -37,7 +37,7 @@ const AcercaDeMi = ({ darkMode }) => {
                                 className="w-full h-auto object-cover"
                             />
                         </div>
-                        {/* Elemento Decorativo Detrás */}
+
                         <div className="absolute -bottom-6 -right-6 w-full h-full bg-indigo-600 rounded-3xl -z-10 opacity-10" />
 
                     </motion.div>

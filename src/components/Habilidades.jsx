@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Cpu } from 'lucide-react';
 import { 
     ReactIcon, 
@@ -11,6 +11,7 @@ import {
     SupabaseIcon, 
     NextIcon 
 } from './Icons';
+import SkillsModal from './skills/skills_modal';
 
 const SkillCard = ({ name, Icon, index, darkMode }) => {
     return (
@@ -54,6 +55,8 @@ const SkillCard = ({ name, Icon, index, darkMode }) => {
 };
 
 const Habilidades = ({ darkMode }) => {
+    const [showSkills, setShowSkills] = useState(false);
+
     const technologies = [
         { name: "React", Icon: ReactIcon },
         { name: "Next.js", Icon: NextIcon },
@@ -121,6 +124,7 @@ const Habilidades = ({ darkMode }) => {
                 {/* Botón Ver Más */}
                 <div className="flex justify-center mt-12">
                     <motion.button
+                        onClick={() => setShowSkills(true)}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         className={`
@@ -135,6 +139,32 @@ const Habilidades = ({ darkMode }) => {
                     </motion.button>
                 </div>
             </div>
+
+            {/* Skills Modal */}
+            <AnimatePresence>
+                {showSkills && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                        {/* Backdrop */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setShowSkills(false)}
+                            className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
+                        />
+                        {/* Modal */}
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                            transition={{ type: 'spring', bounce: 0.2, duration: 0.5 }}
+                            className="relative w-full max-w-3xl bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-800"
+                        >
+                            <SkillsModal onClose={() => setShowSkills(false)} darkMode={darkMode} />
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
         </section>
     );
 };

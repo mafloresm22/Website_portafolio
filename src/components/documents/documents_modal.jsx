@@ -1,9 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FileText, Download, Eye, X, Award, GraduationCap } from 'lucide-react';
+import { FileText, Download, X, Award, GraduationCap } from 'lucide-react';
 
-const DocumentCard = ({ title, type, date, icon: Icon, onDownload, onView }) => (
-    <motion.div 
+const DocumentCard = ({ title, type, date, icon: Icon, onDownload }) => (
+    <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 hover:border-indigo-500/30 transition-all group"
@@ -21,16 +21,8 @@ const DocumentCard = ({ title, type, date, icon: Icon, onDownload, onView }) => 
                 </div>
             </div>
         </div>
-        
         <div className="flex items-center gap-2">
-            <button 
-                onClick={onView}
-                className="p-2 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-500/10 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-                title="Ver documento"
-            >
-                <Eye size={18} />
-            </button>
-            <button 
+            <button
                 onClick={onDownload}
                 className="p-2 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-500/10 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                 title="Descargar"
@@ -43,26 +35,26 @@ const DocumentCard = ({ title, type, date, icon: Icon, onDownload, onView }) => 
 
 const Documents = ({ onClose, darkMode }) => {
     const docs = [
-        { 
-            title: "Curriculum Vitae 2024", 
-            type: "PDF", 
-            date: "Marzo 2024", 
+        {
+            title: "Curriculum Vitae 2024",
+            type: "PDF",
+            date: "Marzo 2024",
             icon: FileText,
             url: "/documents/CV_Mathias_Flores.pdf"
         },
-        { 
-            title: "Certificado React Advanced", 
-            type: "PDF", 
-            date: "Enero 2024", 
+        {
+            title: "Certificado React Advanced",
+            type: "PDF",
+            date: "Enero 2024",
             icon: Award,
             url: "#"
         },
-        { 
-            title: "Bachiller Ingeniería Sistemas", 
-            type: "JPG", 
-            date: "Diciembre 2023", 
+        {
+            title: "Bachiller de Ingeniería de Sistemas",
+            type: "PDF",
+            date: "Enero 2026",
             icon: GraduationCap,
-            url: "#"
+            url: "/documents/Bachiller_Mathias_Flores.pdf"
         }
     ];
 
@@ -73,7 +65,7 @@ const Documents = ({ onClose, darkMode }) => {
                     <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Mis Documentos</h2>
                     <p className="text-slate-500 dark:text-slate-400 text-sm">Certificados y documentación profesional</p>
                 </div>
-                <button 
+                <button
                     onClick={onClose}
                     className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 transition-colors"
                 >
@@ -83,11 +75,10 @@ const Documents = ({ onClose, darkMode }) => {
 
             <div className="space-y-4">
                 {docs.map((doc, index) => (
-                    <DocumentCard 
-                        key={index} 
-                        {...doc} 
+                    <DocumentCard
+                        key={index}
+                        {...doc}
                         onDownload={() => window.open(doc.url, '_blank')}
-                        onView={() => window.open(doc.url, '_blank')}
                     />
                 ))}
             </div>

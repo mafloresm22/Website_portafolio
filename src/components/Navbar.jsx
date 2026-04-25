@@ -5,11 +5,11 @@ import { GithubIcon, LinkedinIcon } from './Icons';
 
 // --- Constants & Config ---
 const NAV_ITEMS = [
-    { name: 'Inicio', href: '#inicio', icon: Home },
-    { name: 'Sobre mí', href: '#acerca-de-mi', icon: User },
-    { name: 'Habilidades', href: '#habilidades', icon: Cpu },
-    { name: 'Proyectos', href: '#proyectos', icon: Briefcase },
-    { name: 'Contacto', href: '#contacto', icon: Mail },
+    { name: 'Inicio', href: 'inicio', icon: Home },
+    { name: 'Sobre mí', href: 'acerca-de-mi', icon: User },
+    { name: 'Habilidades', href: 'habilidades', icon: Cpu },
+    { name: 'Proyectos', href: 'proyectos', icon: Briefcase },
+    { name: 'Contacto', href: 'contacto', icon: Mail },
 ];
 
 const getThemeColors = (darkMode) => ({
@@ -28,7 +28,7 @@ const getThemeColors = (darkMode) => ({
 const Logo = ({ colors, onNavItemClick }) => (
     <motion.a
         href="#inicio"
-        onClick={() => onNavItemClick('#inicio')}
+        onClick={(e) => onNavItemClick(e, 'inicio')}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         className="flex items-center gap-2 group"
@@ -48,8 +48,8 @@ const DesktopNav = ({ activeSection, onNavItemClick, colors }) => (
             return (
                 <a
                     key={item.name}
-                    href={item.href}
-                    onClick={() => onNavItemClick(item.href)}
+                    href={`#${item.href}`}
+                    onClick={(e) => onNavItemClick(e, item.href)}
                     className="relative px-4 py-2 group"
                 >
                     <span className={`
@@ -127,8 +127,8 @@ const MobileMenu = ({ isOpen, activeSection, onNavItemClick, colors, darkMode })
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: index * 0.1 }}
-                                href={item.href}
-                                onClick={() => onNavItemClick(item.href)}
+                                href={`#${item.href}`}
+                                onClick={(e) => onNavItemClick(e, item.href)}
                                 className={`
                                     flex items-center justify-between p-4 rounded-xl text-lg font-medium
                                     ${activeSection === item.href.replace('#', '')
@@ -164,9 +164,45 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const colors = getThemeColors(darkMode);
 
-    const handleNavItemClick = (href) => {
-        setActiveSection(href.replace('#', ''));
-        setIsMenuOpen(false);
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    setActiveSection(id);
+                    window.history.replaceState(null, '', `/${id === 'inicio' ? '' : id}`);
+                }
+            });
+        }, { threshold: 0.6 });
+
+        NAV_ITEMS.forEach((item) => {
+            const element = document.getElementById(item.href);
+            if (element) observer.observe(element);
+        });
+
+        return () => observer.disconnect();
+    }, []);
+
+    const handleNavItemClick = (e, href) => {
+        e.preventDefault();
+        const targetId = href.replace('#', '');
+        const element = document.getElementById(targetId);
+        if (element) {
+            const offset = 80;
+            const bodyRect = document.body.getBoundingClientRect().top;
+            const elementRect = element.getBoundingClientRect().top;
+            const elementPosition = elementRect - bodyRect;
+            const offsetPosition = elementPosition - offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+
+            window.history.pushState(null, '', `/${targetId === 'inicio' ? '' : targetId}`);
+            setActiveSection(targetId);
+            setIsMenuOpen(false);
+        }
     };
 
     return (

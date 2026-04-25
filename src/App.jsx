@@ -2,6 +2,7 @@ import Navbar from "./components/Navbar"
 import Header from "./components/Header"
 import AcercaDeMi from "./components/AcercaDeMi"
 import Habilidades from "./components/Habilidades"
+import Projects from "./components/projects"
 import { useEffect, useState } from "react"
 import AOS from "aos"
 import "aos/dist/aos.css"
@@ -33,6 +34,7 @@ const App = () => {
       <Header darkMode={darkMode} />
       <AcercaDeMi darkMode={darkMode} />
       <Habilidades darkMode={darkMode} />
+      <Projects darkMode={darkMode} />
     </div>
   )
 }
