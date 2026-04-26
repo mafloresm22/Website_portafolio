@@ -54,8 +54,18 @@ const SkillCard = ({ name, Icon, index, darkMode }) => {
     );
 };
 
-const Habilidades = ({ darkMode }) => {
+const Habilidades = ({ darkMode, setIsModalOpen }) => {
     const [showSkills, setShowSkills] = useState(false);
+
+    const handleOpenSkills = () => {
+        setShowSkills(true);
+        setIsModalOpen(true);
+    };
+
+    const handleCloseSkills = () => {
+        setShowSkills(false);
+        setIsModalOpen(false);
+    };
 
     const technologies = [
         { name: "React", Icon: ReactIcon },
@@ -124,7 +134,7 @@ const Habilidades = ({ darkMode }) => {
                 {/* Botón Ver Más */}
                 <div className="flex justify-center mt-12">
                     <motion.button
-                        onClick={() => setShowSkills(true)}
+                        onClick={handleOpenSkills}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         className={`
@@ -143,13 +153,13 @@ const Habilidades = ({ darkMode }) => {
             {/* Skills Modal */}
             <AnimatePresence>
                 {showSkills && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
                         {/* Backdrop */}
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            onClick={() => setShowSkills(false)}
+                            onClick={handleCloseSkills}
                             className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
                         />
                         {/* Modal */}
@@ -160,7 +170,7 @@ const Habilidades = ({ darkMode }) => {
                             transition={{ type: 'spring', bounce: 0.2, duration: 0.5 }}
                             className="relative w-full max-w-3xl bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-800"
                         >
-                            <SkillsModal onClose={() => setShowSkills(false)} darkMode={darkMode} />
+                            <SkillsModal onClose={handleCloseSkills} darkMode={darkMode} />
                         </motion.div>
                     </div>
                 )}

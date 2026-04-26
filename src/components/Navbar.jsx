@@ -159,7 +159,7 @@ const MobileMenu = ({ isOpen, activeSection, onNavItemClick, colors, darkMode })
 
 // --- Main Navbar Component ---
 
-const Navbar = ({ darkMode, toggleDarkMode }) => {
+const Navbar = ({ darkMode, toggleDarkMode, isModalOpen }) => {
     const [activeSection, setActiveSection] = useState('inicio');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const colors = getThemeColors(darkMode);
@@ -188,11 +188,10 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         const targetId = href.replace('#', '');
         const element = document.getElementById(targetId);
         if (element) {
-            const offset = 80;
             const bodyRect = document.body.getBoundingClientRect().top;
             const elementRect = element.getBoundingClientRect().top;
             const elementPosition = elementRect - bodyRect;
-            const offsetPosition = elementPosition - offset;
+            const offsetPosition = elementPosition;
 
             window.scrollTo({
                 top: offsetPosition,
@@ -209,7 +208,11 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         <header className="fixed top-0 left-0 right-0 z-50 flex justify-center p-4 md:p-6 pointer-events-none">
             <motion.nav
                 initial={{ y: -100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
+                animate={{ 
+                    y: isModalOpen ? -150 : 0, 
+                    opacity: isModalOpen ? 0 : 1 
+                }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
                 className={`
                     pointer-events-auto relative flex items-center justify-between
                     w-full max-w-5xl px-6 py-3 rounded-2xl md:rounded-full

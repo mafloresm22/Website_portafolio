@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FileText, Download, X, Award, GraduationCap } from 'lucide-react';
+import { FileText, Download, X, Award, GraduationCap, ChartPie, Database, Image } from 'lucide-react';
 
 const DocumentCard = ({ title, type, date, icon: Icon, onDownload }) => (
     <motion.div
@@ -43,19 +43,47 @@ const Documents = ({ onClose, darkMode }) => {
             url: "/documents/CV_Mathias_Flores.pdf"
         },
         {
-            title: "Certificado React Advanced",
-            type: "PDF",
-            date: "Enero 2024",
-            icon: Award,
-            url: "#"
-        },
-        {
             title: "Bachiller de Ingeniería de Sistemas",
             type: "PDF",
             date: "Enero 2026",
             icon: GraduationCap,
             url: "/documents/Bachiller_Mathias_Flores.pdf"
-        }
+        },
+        {
+            title: "Certificado de FerreyCorp - Impulsando Talento",
+            type: "PDF",
+            date: "Enero 2024",
+            icon: Award,
+            url: "/documents/Certificado_FerreyCorp_ImpulsandoTalentos_2024.pdf"
+        },
+        {
+            title: "Constancia de participación - Taller virtual: Autocuidado mi responsabilidad",
+            type: "PNG",
+            date: "Agosto 2024",
+            icon: Image,
+            url: "/documents/Constancia-participacion-taller-FerreyCorp.png"
+        },
+        {
+            title: "Certificado de PowerBI para DataAnalytics",
+            type: "PDF",
+            date: "Febrero 2025",
+            icon: ChartPie,
+            url: "/documents/Certificado_PowerBI2025.pdf"
+        },
+        {
+            title: "Certificado de SQL Server",
+            type: "PDF",
+            date: "Agosto 2024",
+            icon: Database,
+            url: "/documents/Certificado_SQLServer2024.pdf"
+        },
+        {
+            title: "Constancia de participación - Taller Virtual: Python Fundamentals",
+            type: "PNG",
+            date: "Octubre 2025",
+            icon: Image,
+            url: "/documents/Constancia-Python-Fundamentals.png"
+        },
     ];
 
     return (
@@ -73,7 +101,7 @@ const Documents = ({ onClose, darkMode }) => {
                 </button>
             </div>
 
-            <div className="space-y-4">
+            <div className="max-h-[450px] overflow-y-auto pr-2 space-y-4 custom-scrollbar">
                 {docs.map((doc, index) => (
                     <DocumentCard
                         key={index}

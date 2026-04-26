@@ -1,7 +1,8 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ExternalLink, ArrowRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ExternalLink, ArrowRight, X } from 'lucide-react';
 import { GithubIcon } from './Icons';
+import ProjectsModal from './projects/projects_modal';
 
 const projectsData = [
     {
@@ -30,7 +31,19 @@ const projectsData = [
     }
 ];
 
-const Projects = ({ darkMode }) => {
+const Projects = ({ darkMode, setIsModalOpen }) => {
+    const [showModal, setShowModal] = useState(false);
+
+    const handleOpenModal = () => {
+        setShowModal(true);
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+        setIsModalOpen(false);
+    };
+
     return (
         <section
             id="proyectos"
@@ -144,6 +157,7 @@ const Projects = ({ darkMode }) => {
                     className="flex justify-center mt-16"
                 >
                     <motion.button
+                        onClick={handleOpenModal}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         className={`
@@ -159,8 +173,32 @@ const Projects = ({ darkMode }) => {
                     </motion.button>
                 </motion.div>
             </div>
+
+            {/* Modal de Proyectos XXL */}
+            <AnimatePresence>
+                {showModal && (
+                    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={handleCloseModal}
+                            className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
+                        />
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                            className="relative w-full max-w-7xl bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-800"
+                        >
+                            <ProjectsModal onClose={handleCloseModal} darkMode={darkMode} />
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
         </section>
     );
 };
 
 export default Projects;
+

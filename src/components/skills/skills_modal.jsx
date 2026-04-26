@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { X, Cpu, Code2, Database, Layers, BarChart2 } from 'lucide-react';
+import { X, Cpu, Code2, Database, Layers, BarChart2, Smartphone } from 'lucide-react';
 
 // --- Data ---
 const SKILL_CATEGORIES = [
@@ -11,10 +11,10 @@ const SKILL_CATEGORIES = [
         colorBg: 'bg-indigo-500/10 dark:bg-indigo-500/10',
         colorText: 'text-indigo-600 dark:text-indigo-400',
         skills: [
-            { name: 'React.js', level: 85 },
-            { name: 'TypeScript', level: 70 },
-            { name: 'Tailwind CSS', level: 90 },
-            { name: 'Next.js', level: 65 },
+            { name: 'React.js', level: 85, experience: 1 },
+            { name: 'TypeScript', level: 70, experience: 1 },
+            { name: 'Tailwind CSS', level: 90, experience: 0.5 },
+            { name: 'Next.js', level: 40, experience: 0.5 },
         ],
     },
     {
@@ -24,9 +24,9 @@ const SKILL_CATEGORIES = [
         colorBg: 'bg-violet-500/10 dark:bg-violet-500/10',
         colorText: 'text-violet-600 dark:text-violet-400',
         skills: [
-            { name: 'PHP', level: 75 },
-            { name: 'Laravel', level: 70 },
-            { name: 'Python', level: 65 },
+            { name: 'PHP', level: 75, experience: 2 },
+            { name: 'Laravel', level: 70, experience: 2 },
+            { name: 'Python', level: 65, experience: 1 },
         ],
     },
     {
@@ -36,8 +36,18 @@ const SKILL_CATEGORIES = [
         colorBg: 'bg-sky-500/10 dark:bg-sky-500/10',
         colorText: 'text-sky-600 dark:text-sky-400',
         skills: [
-            { name: 'MySQL', level: 80 },
-            { name: 'Supabase / PostgreSQL', level: 65 },
+            { name: 'MySQL', level: 80, experience: 1 },
+            { name: 'PostgreSQL', level: 65, experience: 1 },
+        ],
+    },
+    {
+        label: 'Desarrollo Móvil',
+        icon: Smartphone,
+        color: 'from-blue-500 to-cyan-500',
+        colorBg: 'bg-blue-500/10 dark:bg-blue-500/10',
+        colorText: 'text-blue-600 dark:text-blue-400',
+        skills: [
+            { name: 'React Native', level: 50, experience: 1 },
         ],
     },
     {
@@ -47,9 +57,9 @@ const SKILL_CATEGORIES = [
         colorBg: 'bg-emerald-500/10 dark:bg-emerald-500/10',
         colorText: 'text-emerald-600 dark:text-emerald-400',
         skills: [
-            { name: 'Power BI', level: 72 },
-            { name: 'Excel Avanzado', level: 80 },
-            { name: 'Git & GitHub', level: 75 },
+            { name: 'Power BI', level: 72, experience: 1 },
+            { name: 'Excel Avanzado', level: 80, experience: 3 },
+            { name: 'Git & GitHub', level: 75, experience: 2 },
         ],
     },
 ];
@@ -57,7 +67,18 @@ const SKILL_CATEGORIES = [
 const getLevelLabel = (level) => {
     if (level >= 85) return 'Avanzado';
     if (level >= 65) return 'Intermedio';
-    return 'Básico';
+    if (level >= 50) return 'Básico';
+    if (level >= 35) return 'En Aprendizaje';
+    return 'Novato';
+};
+
+const formatExperience = (exp) => {
+    if (typeof exp === 'string') return exp;
+    if (exp < 1) {
+        const months = Math.round(exp * 12);
+        return `${months} ${months === 1 ? 'mes' : 'meses'}`;
+    }
+    return `${exp} ${exp === 1 ? 'año' : 'años'}`;
 };
 
 // --- Sub-components ---
@@ -65,7 +86,14 @@ const getLevelLabel = (level) => {
 const ProgressBar = ({ skill, gradient, animate }) => (
     <div className="space-y-1.5">
         <div className="flex items-center justify-between text-sm">
-            <span className="font-semibold text-slate-800 dark:text-slate-200">{skill.name}</span>
+            <div className="flex items-center gap-2">
+                <span className="font-semibold text-slate-800 dark:text-slate-200">{skill.name}</span>
+                {skill.experience && (
+                    <span className="px-1.5 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-[10px] font-bold text-slate-500 dark:text-slate-400 border border-slate-200/50 dark:border-slate-700/50">
+                        {formatExperience(skill.experience)}
+                    </span>
+                )}
+            </div>
             <div className="flex items-center gap-2">
                 <span className="text-xs text-slate-400 dark:text-slate-500 font-medium">
                     {getLevelLabel(skill.level)}

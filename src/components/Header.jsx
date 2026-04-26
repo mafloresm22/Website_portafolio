@@ -5,10 +5,19 @@ import { GithubIcon, LinkedinIcon } from './Icons';
 import personalImg from '../assets/images/image_personal.png';
 import Documents from './documents/documents_modal';
 
-const Header = ({ darkMode }) => {
+const Header = ({ darkMode, setIsModalOpen }) => {
     const [showDocs, setShowDocs] = useState(false);
 
-    // Animation Variants
+    const handleOpenDocs = () => {
+        setShowDocs(true);
+        setIsModalOpen(true);
+    };
+
+    const handleCloseDocs = () => {
+        setShowDocs(false);
+        setIsModalOpen(false);
+    };
+
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -79,7 +88,7 @@ const Header = ({ darkMode }) => {
                             </motion.a>
 
                             <motion.button
-                                onClick={() => setShowDocs(true)}
+                                onClick={handleOpenDocs}
                                 whileHover={{ scale: 1.02, y: -2 }}
                                 whileTap={{ scale: 0.98 }}
                                 className="group flex items-center justify-center gap-2 px-8 py-4 border-2 border-slate-200 dark:border-slate-800 hover:border-indigo-600 dark:hover:border-indigo-500 text-slate-700 dark:text-slate-200 rounded-2xl font-bold text-lg transition-all"
@@ -119,12 +128,12 @@ const Header = ({ darkMode }) => {
             {/* Documents Modal */}
             <AnimatePresence>
                 {showDocs && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            onClick={() => setShowDocs(false)}
+                            onClick={handleCloseDocs}
                             className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
                         />
                         <motion.div
@@ -133,7 +142,7 @@ const Header = ({ darkMode }) => {
                             exit={{ opacity: 0, scale: 0.9, y: 20 }}
                             className="relative w-full max-w-2xl bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-800"
                         >
-                            <Documents onClose={() => setShowDocs(false)} darkMode={darkMode} />
+                            <Documents onClose={handleCloseDocs} darkMode={darkMode} />
                         </motion.div>
                     </div>
                 )}
