@@ -33,7 +33,7 @@ const App = () => {
     }>
       <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} isModalOpen={isModalOpen} />
       <Header darkMode={darkMode} setIsModalOpen={setIsModalOpen} />
-      <AcercaDeMi darkMode={darkMode} />
+      <AcercaDeMi darkMode={darkMode} setIsModalOpen={setIsModalOpen} />
       <Habilidades darkMode={darkMode} setIsModalOpen={setIsModalOpen} />
       <Projects darkMode={darkMode} setIsModalOpen={setIsModalOpen} />
     </div>

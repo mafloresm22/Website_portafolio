@@ -88,7 +88,7 @@ const ProjectsModal = ({ onClose, darkMode }) => {
             title: "Aplicación Móvil de listas de compras",
             category: "Aplicación Móvil",
             description: "Solución móvil que permite gestionar listas de compras de manera colaborativa, integrando funcionalidades de busqueda de productos.",
-            banner: "",
+            banner: "../../../public/images/appMovListaCompras/Inicio.jpeg",
             icon: Smartphone,
             colorBg: "bg-blue-500/10",
             colorText: "text-blue-600",
