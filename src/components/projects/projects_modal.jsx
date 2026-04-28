@@ -1,7 +1,8 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { X, ExternalLink, Code, Globe, Database, Smartphone, FileText } from 'lucide-react';
 import { GithubIcon } from '../Icons';
+import ShowControlInventarioLab from './trabajos/show_controlInventarioLab';
 
 const ProjectCard = ({ project, darkMode }) => {
     return (
@@ -44,14 +45,23 @@ const ProjectCard = ({ project, darkMode }) => {
                         <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Tecnología</span>
                         <span className="text-sm font-bold text-slate-600 dark:text-slate-300">{project.tech}</span>
                     </div>
-                    <a
-                        href={project.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold transition-all shadow-lg shadow-indigo-500/30 hover:scale-105 active:scale-95"
-                    >
-                        Ver Documento <FileText size={18} />
-                    </a>
+                    <div className="flex items-center gap-3">
+                        <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-2.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all shadow-sm hover:scale-110 active:scale-95"
+                            title="GitHub Repository"
+                        >
+                            <GithubIcon size={22} />
+                        </a>
+                        <button
+                            onClick={() => project.onVer ? project.onVer() : window.open(project.url, '_blank')}
+                            className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold transition-all shadow-lg shadow-indigo-500/30 hover:scale-105 active:scale-95"
+                        >
+                            Ver <FileText size={18} />
+                        </button>
+                    </div>
                 </div>
             </div>
         </motion.div>
@@ -59,42 +69,48 @@ const ProjectCard = ({ project, darkMode }) => {
 };
 
 const ProjectsModal = ({ onClose, darkMode }) => {
+    const [activeProject, setActiveProject] = useState(null);
+
     const projects = [
         {
             title: "Sistema de Control de Inventario de Laboratorio",
             category: "App de Escritorio",
             description: "Plataforma integral para la gestión de inventarios de laboratorios, permitiendo el control de insumos, equipos y usuarios.",
-            banner: "../../../public/images/sisLabInventario/inicio.png",
+            banner: "/images/sisLabInventario/Inicio.png",
             icon: Database,
             colorBg: "bg-indigo-500/10",
             colorText: "text-indigo-600",
             tech: "Phyton/PostgreSQL",
             status: "Completado",
-            url: "#"
+            url: "#",
+            github: "https://github.com/mafloresm22/sisLaboratorioAOE",
+            onVer: () => setActiveProject('sisLabInventario')
         },
         {
             title: "Sistema web para la gestión escolar en la I.E Antenor Orrego Espinoza",
             category: "App Web",
             description: "Plataforma integral para la gestión de estudiantes, docentes, cursos y calificaciones.",
-            banner: "",
+            banner: "/images/sisIEAntenorOrrego/Inicio.png",
             icon: Code,
             colorBg: "bg-emerald-500/10",
             colorText: "text-emerald-600",
             tech: "Laravel/MySQL",
             status: "Completado",
-            url: "#"
+            url: "#",
+            github: "#"
         },
         {
             title: "Aplicación Móvil de listas de compras",
             category: "Aplicación Móvil",
             description: "Solución móvil que permite gestionar listas de compras de manera colaborativa, integrando funcionalidades de busqueda de productos.",
-            banner: "../../../public/images/appMovListaCompras/Inicio.jpeg",
+            banner: "/images/appMovListaCompras/Inicio.jpeg",
             icon: Smartphone,
             colorBg: "bg-blue-500/10",
             colorText: "text-blue-600",
             tech: "React Native/Supabase",
             status: "Completado",
-            url: "#"
+            url: "#",
+            github: "#"
         },
         {
             title: "Sistema para la Gestión de Ventas en una Tienda",
@@ -106,48 +122,71 @@ const ProjectsModal = ({ onClose, darkMode }) => {
             colorText: "text-purple-600",
             tech: "React.js/Supabase",
             status: "En Proceso",
-            url: "#"
+            url: "#",
+            github: "#"
         }
     ];
 
     return (
-        <div className="flex flex-col h-[90vh] w-full max-w-7xl mx-auto">
-            {/* Header */}
-            <div className="flex items-center justify-between px-8 pt-8 pb-6 border-b border-slate-100 dark:border-slate-800 flex-shrink-0">
-                <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-indigo-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20">
-                        <ExternalLink size={24} />
-                    </div>
-                    <div>
-                        <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white leading-tight">
-                            Mis Proyectos Destacados
-                        </h2>
-                        <p className="text-slate-500 dark:text-slate-400 font-medium">
-                            Soluciones innovadoras y análisis de datos de alto impacto
-                        </p>
-                    </div>
-                </div>
-                <button
-                    onClick={onClose}
-                    className="p-3 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-all hover:rotate-90"
-                    aria-label="Cerrar"
-                >
-                    <X size={28} />
-                </button>
-            </div>
+        <div className="flex flex-col h-[90vh] w-full max-w-7xl mx-auto overflow-hidden">
+            <AnimatePresence mode="wait">
+                {activeProject === 'sisLabInventario' ? (
+                    <motion.div
+                        key="detail"
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -50 }}
+                        className="h-full"
+                    >
+                        <ShowControlInventarioLab onClose={() => setActiveProject(null)} darkMode={darkMode} />
+                    </motion.div>
+                ) : (
+                    <motion.div
+                        key="list"
+                        initial={{ opacity: 0, x: -50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 50 }}
+                        className="flex flex-col h-full"
+                    >
+                        {/* Header */}
+                        <div className="flex items-center justify-between px-8 pt-8 pb-6 border-b border-slate-100 dark:border-slate-800 flex-shrink-0">
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 rounded-2xl bg-indigo-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20">
+                                    <ExternalLink size={24} />
+                                </div>
+                                <div>
+                                    <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white leading-tight">
+                                        Mis Proyectos Destacados
+                                    </h2>
+                                    <p className="text-slate-500 dark:text-slate-400 font-medium">
+                                        Soluciones innovadoras y análisis de datos de alto impacto
+                                    </p>
+                                </div>
+                            </div>
+                            <button
+                                onClick={onClose}
+                                className="p-3 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-all hover:rotate-90"
+                                aria-label="Cerrar"
+                            >
+                                <X size={28} />
+                            </button>
+                        </div>
 
-            {/* Scrollable Body */}
-            <div className="overflow-y-auto flex-1 px-8 py-8 custom-scrollbar">
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-                    {projects.map((project, index) => (
-                        <ProjectCard
-                            key={index}
-                            project={project}
-                            darkMode={darkMode}
-                        />
-                    ))}
-                </div>
-            </div>
+                        {/* Scrollable Body */}
+                        <div className="overflow-y-auto flex-1 px-8 py-8 custom-scrollbar">
+                            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+                                {projects.map((project, index) => (
+                                    <ProjectCard
+                                        key={index}
+                                        project={project}
+                                        darkMode={darkMode}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 };

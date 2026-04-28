@@ -170,17 +170,30 @@ const Navbar = ({ darkMode, toggleDarkMode, isModalOpen }) => {
                 if (entry.isIntersecting) {
                     const id = entry.target.id;
                     setActiveSection(id);
-                    window.history.replaceState(null, '', `/${id === 'inicio' ? '' : id}`);
                 }
             });
-        }, { threshold: 0.6 });
+        }, { 
+            threshold: 0.3,
+            rootMargin: '-10% 0px -10% 0px' 
+        });
 
         NAV_ITEMS.forEach((item) => {
             const element = document.getElementById(item.href);
             if (element) observer.observe(element);
         });
 
-        return () => observer.disconnect();
+        // Especial para el final de la página (Contacto)
+        const handleScroll = () => {
+            if ((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 50) {
+                setActiveSection('contacto');
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            observer.disconnect();
+            window.removeEventListener('scroll', handleScroll);
+        };
     }, []);
 
     const handleNavItemClick = (e, href) => {

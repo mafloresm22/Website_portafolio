@@ -3,6 +3,8 @@ import Header from "./components/Header"
 import AcercaDeMi from "./components/AcercaDeMi"
 import Habilidades from "./components/Habilidades"
 import Projects from "./components/projects"
+import ContactMe from "./components/ContactMe"
+import Footer from "./components/Footer"
 import { useEffect, useState } from "react"
 import AOS from "aos"
 import "aos/dist/aos.css"
@@ -36,6 +38,8 @@ const App = () => {
       <AcercaDeMi darkMode={darkMode} setIsModalOpen={setIsModalOpen} />
       <Habilidades darkMode={darkMode} setIsModalOpen={setIsModalOpen} />
       <Projects darkMode={darkMode} setIsModalOpen={setIsModalOpen} />
+      <ContactMe darkMode={darkMode} />
+      <Footer darkMode={darkMode} />
     </div>
   )
 }
