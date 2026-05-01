@@ -75,7 +75,7 @@ const ProjectsModal = ({ onClose, darkMode }) => {
         {
             title: "Sistema de Control de Inventario de Laboratorio",
             category: "App de Escritorio",
-            description: "Plataforma integral para la gestión de inventarios de laboratorios, permitiendo el control de insumos, equipos y usuarios.",
+            description: "Plataforma integral para la gestión de inventarios de laboratorios, permitiendo el control de insumos, equipos y usuarios",
             banner: "/images/sisLabInventario/Inicio.png",
             icon: Database,
             colorBg: "bg-indigo-500/10",
@@ -89,7 +89,7 @@ const ProjectsModal = ({ onClose, darkMode }) => {
         {
             title: "Sistema web para la gestión escolar en la I.E Antenor Orrego Espinoza",
             category: "App Web",
-            description: "Plataforma integral para la gestión de estudiantes, docentes, cursos y calificaciones.",
+            description: "Plataforma integral para la gestión de estudiantes, docentes, cursos y calificaciones",
             banner: "/images/sisIEAntenorOrrego/Inicio.png",
             icon: Code,
             colorBg: "bg-emerald-500/10",
@@ -102,7 +102,7 @@ const ProjectsModal = ({ onClose, darkMode }) => {
         {
             title: "Aplicación Móvil de listas de compras",
             category: "Aplicación Móvil",
-            description: "Solución móvil que permite gestionar listas de compras de manera colaborativa, integrando funcionalidades de busqueda de productos.",
+            description: "Solución móvil que permite gestionar listas de compras de manera colaborativa, integrando funcionalidades de busqueda de productos",
             banner: "/images/appMovListaCompras/Inicio.jpeg",
             icon: Smartphone,
             colorBg: "bg-blue-500/10",

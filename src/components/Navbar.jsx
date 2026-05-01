@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Sun, Moon, ExternalLink, Home, User, Briefcase, Mail, Cpu } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
@@ -61,9 +61,11 @@ const DesktopNav = ({ activeSection, onNavItemClick, colors }) => (
                     </span>
                     {isActive && (
                         <motion.div
-                            layoutId="nav-indicator"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
                             className={`absolute inset-0 ${colors.indicator} rounded-full`}
-                            transition={{ type: 'spring', bounce: 0.25, duration: 0.5 }}
+                            transition={{ duration: 0.3 }}
                         />
                     )}
                 </a>
@@ -162,19 +164,22 @@ const MobileMenu = ({ isOpen, activeSection, onNavItemClick, colors, darkMode })
 const Navbar = ({ darkMode, toggleDarkMode, isModalOpen }) => {
     const [activeSection, setActiveSection] = useState('inicio');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const isScrollingManual = useRef(false);
+    const scrollTimeoutRef = useRef(null);
     const colors = getThemeColors(darkMode);
 
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
+            if (isScrollingManual.current) return;
+            
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    const id = entry.target.id;
-                    setActiveSection(id);
+                    setActiveSection(entry.target.id);
                 }
             });
         }, { 
-            threshold: 0.3,
-            rootMargin: '-10% 0px -10% 0px' 
+            threshold: 0.5,
+            rootMargin: '-20% 0px -20% 0px' 
         });
 
         NAV_ITEMS.forEach((item) => {
@@ -184,6 +189,7 @@ const Navbar = ({ darkMode, toggleDarkMode, isModalOpen }) => {
 
         // Especial para el final de la página (Contacto)
         const handleScroll = () => {
+            if (isScrollingManual.current) return;
             if ((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 50) {
                 setActiveSection('contacto');
             }
@@ -204,6 +210,10 @@ const Navbar = ({ darkMode, toggleDarkMode, isModalOpen }) => {
             const bodyRect = document.body.getBoundingClientRect().top;
             const elementRect = element.getBoundingClientRect().top;
             const elementPosition = elementRect - bodyRect;
+            isScrollingManual.current = true;
+            setActiveSection(targetId);
+            setIsMenuOpen(false);
+
             const offsetPosition = elementPosition;
 
             window.scrollTo({
@@ -212,8 +222,11 @@ const Navbar = ({ darkMode, toggleDarkMode, isModalOpen }) => {
             });
 
             window.history.pushState(null, '', `/${targetId === 'inicio' ? '' : targetId}`);
-            setActiveSection(targetId);
-            setIsMenuOpen(false);
+
+            if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+            scrollTimeoutRef.current = setTimeout(() => {
+                isScrollingManual.current = false;
+            }, 800);
         }
     };
 

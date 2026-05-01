@@ -1,31 +1,32 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, ArrowRight, X } from 'lucide-react';
+import { ExternalLink, ArrowRight } from 'lucide-react';
 import { GithubIcon } from './Icons';
 import ProjectsModal from './projects/projects_modal';
+import ShowControlInventarioLab from './projects/trabajos/show_controlInventarioLab';
 
 const projectsData = [
     {
         id: 1,
         title: 'Sistema de Control de Inventario de Laboratorio',
-        description: 'Plataforma para la gestión de inventarios de laboratorios, permitiendo el control de insumos, equipos y usuarios.',
-        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=2426',
-        github: 'https://github.com',
-        demo: 'https://demo.com',
+        description: 'Plataforma integral para la gestión de inventarios de laboratorios, permitiendo el control de insumos, equipos y usuarios',
+        image: '/images/sisLabInventario/Inicio.png',
+        github: 'https://github.com/mafloresm22/sisLaboratorioAOE',
+        detail: 'sisLabInventario',
     },
     {
         id: 2,
-        title: 'Sistema web para la I.E Antenor Orrego Espinoza',
-        description: 'Plataforma web de gestión académica para instituciones educativas, con módulos de estudiantes, docentes, cursos y calificaciones.',
-        image: 'https://images.unsplash.com/photo-1551288049-bbbda536ad37?auto=format&fit=crop&q=80&w=2070',
-        github: 'https://github.com',
+        title: 'Sistema web para la gestión escolar en la I.E Antenor Orrego Espinoza',
+        description: 'Plataforma integral para la gestión de estudiantes, docentes, cursos y calificaciones',
+        image: '/images/sisIEAntenorOrrego/Inicio.png',
+        github: 'https://github.com/mafloresm22/sisLaboratorioAOE',
         demo: 'https://demo.com',
     },
     {
         id: 3,
-        title: 'Aplicación Movil para lista de compras',
-        description: 'Aplicacion movil que permite gestionar listas de compras de manera colaborativa, integrando funcionalidades de busqueda de productos.',
-        image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=2070',
+        title: 'Aplicación Móvil de listas de compras',
+        description: 'Solución móvil que permite gestionar listas de compras de manera colaborativa, integrando funcionalidades de busqueda de productos',
+        image: '/images/appMovListaCompras/Inicio.jpeg',
         github: 'https://github.com',
         demo: 'https://demo.com',
     }
@@ -33,6 +34,7 @@ const projectsData = [
 
 const Projects = ({ darkMode, setIsModalOpen }) => {
     const [showModal, setShowModal] = useState(false);
+    const [showDetail, setShowDetail] = useState(null);
 
     const handleOpenModal = () => {
         setShowModal(true);
@@ -41,6 +43,16 @@ const Projects = ({ darkMode, setIsModalOpen }) => {
 
     const handleCloseModal = () => {
         setShowModal(false);
+        setIsModalOpen(false);
+    };
+
+    const handleOpenDetail = (projectId) => {
+        setShowDetail(projectId);
+        setIsModalOpen(true);
+    };
+
+    const handleCloseDetail = () => {
+        setShowDetail(null);
         setIsModalOpen(false);
     };
 
@@ -119,15 +131,25 @@ const Projects = ({ darkMode, setIsModalOpen }) => {
 
                                 {/* Acciones */}
                                 <div className="grid grid-cols-2 gap-4">
-                                    <a
-                                        href={project.demo}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-blue-600 text-sm font-bold shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all hover:scale-[1.02]"
-                                    >
-                                        <ExternalLink size={16} />
-                                        Ver
-                                    </a>
+                                    {project.detail ? (
+                                        <button
+                                            onClick={() => handleOpenDetail(project.detail)}
+                                            className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-blue-600 text-sm font-bold shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all hover:scale-[1.02] cursor-pointer"
+                                        >
+                                            <ExternalLink size={16} />
+                                            Ver
+                                        </button>
+                                    ) : (
+                                        <a
+                                            href={project.demo}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-blue-600 text-sm font-bold shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all hover:scale-[1.02]"
+                                        >
+                                            <ExternalLink size={16} />
+                                            Ver
+                                        </a>
+                                    )}
                                     <a
                                         href={project.github}
                                         target="_blank"
@@ -174,7 +196,30 @@ const Projects = ({ darkMode, setIsModalOpen }) => {
                 </motion.div>
             </div>
 
-            {/* Modal de Proyectos XXL */}
+            {/* Modal de Detalle de Proyecto Específico */}
+            <AnimatePresence>
+                {showDetail === 'sisLabInventario' && (
+                    <div className="fixed inset-0 z-[70] flex items-center justify-center p-4">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={handleCloseDetail}
+                            className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
+                        />
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                            className="relative w-full max-w-7xl h-[90vh] bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-800"
+                        >
+                            <ShowControlInventarioLab onClose={handleCloseDetail} darkMode={darkMode} />
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
+
+            {/* Modal de Proyectos */}
             <AnimatePresence>
                 {showModal && (
                     <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">

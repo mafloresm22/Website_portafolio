@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Download, Mail, MessageSquare, ArrowRight, FileText } from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from './Icons';
-import personalImg from '../assets/images/image_personal.png';
+import { Download, FileText } from 'lucide-react';
+import personalImg from '../assets/images/Personal.jpeg';
 import Documents from './documents/documents_modal';
 
 const Header = ({ darkMode, setIsModalOpen }) => {
@@ -101,26 +100,39 @@ const Header = ({ darkMode, setIsModalOpen }) => {
 
                     {/* Image Side */}
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9, rotate: 2 }}
-                        animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 1, ease: "easeOut" }}
                         className="order-1 lg:order-2 flex justify-center lg:justify-end"
                     >
-                        <div className="relative group">
-                            {/* Decorative rings */}
-                            <div className="absolute -inset-4 border-2 border-dashed border-indigo-500/20 rounded-[2rem] animate-[spin_20s_linear_infinite]" />
-                            <div className="absolute -inset-8 border border-purple-500/10 rounded-[3rem] animate-[spin_30s_linear_infinite_reverse]" />
+                        <motion.div
+                            animate={{
+                                y: [0, -20, 0],
+                            }}
+                            transition={{
+                                duration: 6,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }}
+                            className="relative group"
+                        >
+                            {/* Glow effect behind the image */}
+                            <div className="absolute -inset-4 bg-linear-to-r from-indigo-500 to-purple-600 rounded-[3rem] blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-700" />
 
-                            <div className="relative z-10 w-64 h-64 md:w-80 md:h-80 lg:w-[400px] lg:h-[400px] rounded-[2.5rem] overflow-hidden border-4 border-white dark:border-slate-800 shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]">
+                            {/* Decorative rings with refined styles */}
+                            <div className="absolute -inset-6 border-2 border-dashed border-indigo-500/20 rounded-[2.5rem] animate-[spin_25s_linear_infinite]" />
+                            <div className="absolute -inset-10 border border-purple-500/10 rounded-[3.5rem] animate-[spin_35s_linear_infinite_reverse]" />
+
+                            <div className="relative z-10 w-64 h-64 md:w-80 md:h-80 lg:w-[420px] lg:h-[420px] rounded-[3rem] overflow-hidden border-8 border-white dark:border-slate-800 shadow-[0_32px_64px_-12px_rgba(0,0,0,0.3)] transition-all duration-700 group-hover:scale-[1.03] group-hover:rotate-2 group-hover:shadow-indigo-500/20">
                                 <img
                                     src={personalImg}
                                     alt="Mathias Flores"
-                                    className="w-full h-full object-cover"
+                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                 />
-                                {/* Overlay Gradient */}
-                                <div className="absolute inset-0 bg-linear-to-t from-indigo-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                <div className="absolute inset-0 bg-linear-to-t from-slate-900/60 via-transparent to-transparent opacity-40 group-hover:opacity-20 transition-opacity duration-500" />
+                                <div className="absolute inset-0 border border-white/20 rounded-[3rem] pointer-events-none" />
                             </div>
-                        </div>
+                        </motion.div>
                     </motion.div>
                 </div>
             </div>
