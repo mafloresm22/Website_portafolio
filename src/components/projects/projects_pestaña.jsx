@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ExternalLink, Code, Globe, Database, Smartphone, FileText } from 'lucide-react';
 import { GithubIcon } from '../Icons';
 import ShowControlInventarioLab from './trabajos/show_controlInventarioLab';
+import ShowSisAOE from './trabajos/show_sisAOE';
 
 const ProjectCard = ({ project, darkMode }) => {
     return (
@@ -83,7 +84,7 @@ const ProjectsModal = ({ onClose, darkMode }) => {
             tech: "Phyton/PostgreSQL",
             status: "Completado",
             url: "#",
-            github: "https://github.com/mafloresm22/sisLaboratorioAOE",
+            github: "https://github.com/mafloresm22/sisLaboratorioAOE.git",
             onVer: () => setActiveProject('sisLabInventario')
         },
         {
@@ -97,7 +98,8 @@ const ProjectsModal = ({ onClose, darkMode }) => {
             tech: "Laravel/MySQL",
             status: "Completado",
             url: "#",
-            github: "#"
+            github: "https://github.com/mafloresm22/sistemagestionescolar.git",
+            onVer: () => setActiveProject('sisAOE')
         },
         {
             title: "Aplicación Móvil de listas de compras",
@@ -139,6 +141,16 @@ const ProjectsModal = ({ onClose, darkMode }) => {
                         className="h-full"
                     >
                         <ShowControlInventarioLab onClose={() => setActiveProject(null)} darkMode={darkMode} />
+                    </motion.div>
+                ) : activeProject === 'sisAOE' ? (
+                    <motion.div
+                        key="detailAOE"
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -50 }}
+                        className="h-full"
+                    >
+                        <ShowSisAOE onClose={() => setActiveProject(null)} darkMode={darkMode} />
                     </motion.div>
                 ) : (
                     <motion.div

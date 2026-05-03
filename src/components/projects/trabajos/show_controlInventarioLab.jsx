@@ -73,7 +73,7 @@ const ShowControlInventarioLab = ({ onClose, darkMode }) => {
 
                             <div className="pt-6">
                                 <a
-                                    href="https://github.com/mafloresm22/sisLaboratorioAOE"
+                                    href="https://github.com/mafloresm22/sisLaboratorioAOE.git"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-slate-900 dark:bg-indigo-600 text-white font-bold hover:scale-105 transition-all shadow-xl shadow-indigo-500/20"

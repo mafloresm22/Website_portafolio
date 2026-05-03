@@ -4,6 +4,7 @@ import { ExternalLink, ArrowRight } from 'lucide-react';
 import { GithubIcon } from './Icons';
 import ProjectsModal from './projects/projects_pestaña';
 import ShowControlInventarioLab from './projects/trabajos/show_controlInventarioLab';
+import ShowSisAOE from './projects/trabajos/show_sisAOE';
 
 const projectsData = [
     {
@@ -11,7 +12,7 @@ const projectsData = [
         title: 'Sistema de Control de Inventario de Laboratorio',
         description: 'Plataforma integral para la gestión de inventarios de laboratorios, permitiendo el control de insumos, equipos y usuarios',
         image: '/images/sisLabInventario/Inicio.png',
-        github: 'https://github.com/mafloresm22/sisLaboratorioAOE',
+        github: 'https://github.com/mafloresm22/sisLaboratorioAOE.git',
         detail: 'sisLabInventario',
     },
     {
@@ -19,8 +20,8 @@ const projectsData = [
         title: 'Sistema web para la gestión escolar en la I.E Antenor Orrego Espinoza',
         description: 'Plataforma integral para la gestión de estudiantes, docentes, cursos y calificaciones',
         image: '/images/sisIEAntenorOrrego/Inicio.png',
-        github: 'https://github.com/mafloresm22/sisLaboratorioAOE',
-        demo: 'https://demo.com',
+        github: 'https://github.com/mafloresm22/sistemagestionescolar.git',
+        detail: 'sisAOE',
     },
     {
         id: 3,
@@ -208,6 +209,19 @@ const Projects = ({ darkMode, setIsModalOpen }) => {
                             className="w-full h-full"
                         >
                             <ShowControlInventarioLab onClose={handleCloseDetail} darkMode={darkMode} />
+                        </motion.div>
+                    </div>
+                )}
+                {showDetail === 'sisAOE' && (
+                    <div className="fixed inset-0 z-[70] bg-white dark:bg-slate-900 overflow-hidden">
+                        <motion.div
+                            initial={{ opacity: 0, x: '100%' }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: '100%' }}
+                            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                            className="w-full h-full"
+                        >
+                            <ShowSisAOE onClose={handleCloseDetail} darkMode={darkMode} />
                         </motion.div>
                     </div>
                 )}
