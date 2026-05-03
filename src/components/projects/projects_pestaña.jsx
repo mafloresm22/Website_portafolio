@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ExternalLink, Code, Globe, Database, Smartphone, FileText } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Code, Globe, Database, Smartphone, FileText } from 'lucide-react';
 import { GithubIcon } from '../Icons';
 import ShowControlInventarioLab from './trabajos/show_controlInventarioLab';
 
@@ -128,7 +128,7 @@ const ProjectsModal = ({ onClose, darkMode }) => {
     ];
 
     return (
-        <div className="flex flex-col h-[90vh] w-full max-w-7xl mx-auto overflow-hidden">
+        <div className="flex flex-col h-full w-full max-w-7xl mx-auto overflow-hidden">
             <AnimatePresence mode="wait">
                 {activeProject === 'sisLabInventario' ? (
                     <motion.div
@@ -151,6 +151,13 @@ const ProjectsModal = ({ onClose, darkMode }) => {
                         {/* Header */}
                         <div className="flex items-center justify-between px-8 pt-8 pb-6 border-b border-slate-100 dark:border-slate-800 flex-shrink-0">
                             <div className="flex items-center gap-4">
+                                <button
+                                    onClick={onClose}
+                                    className="p-2 mr-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-all hover:-translate-x-1"
+                                    aria-label="Retroceder"
+                                >
+                                    <ArrowLeft size={28} />
+                                </button>
                                 <div className="w-12 h-12 rounded-2xl bg-indigo-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20">
                                     <ExternalLink size={24} />
                                 </div>
@@ -163,13 +170,6 @@ const ProjectsModal = ({ onClose, darkMode }) => {
                                     </p>
                                 </div>
                             </div>
-                            <button
-                                onClick={onClose}
-                                className="p-3 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-all hover:rotate-90"
-                                aria-label="Cerrar"
-                            >
-                                <X size={28} />
-                            </button>
                         </div>
 
                         {/* Scrollable Body */}

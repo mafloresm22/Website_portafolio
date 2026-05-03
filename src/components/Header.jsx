@@ -76,8 +76,8 @@ const Header = ({ darkMode, setIsModalOpen }) => {
 
                         <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4">
                             <motion.a
-                                href="/documents/CV_Mathias_Flores.pdf"
-                                download="CV_Mathias_Flores.pdf"
+                                href="/documents/CV_2026.pdf"
+                                download="CV_2026.pdf"
                                 whileHover={{ scale: 1.02, y: -2 }}
                                 whileTap={{ scale: 0.98 }}
                                 className="group flex items-center justify-center gap-2 px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl font-bold text-lg transition-all shadow-lg shadow-indigo-500/25 cursor-pointer"

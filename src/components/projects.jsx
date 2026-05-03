@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, ArrowRight } from 'lucide-react';
 import { GithubIcon } from './Icons';
-import ProjectsModal from './projects/projects_modal';
+import ProjectsModal from './projects/projects_pestaña';
 import ShowControlInventarioLab from './projects/trabajos/show_controlInventarioLab';
 
 const projectsData = [
@@ -196,22 +196,16 @@ const Projects = ({ darkMode, setIsModalOpen }) => {
                 </motion.div>
             </div>
 
-            {/* Modal de Detalle de Proyecto Específico */}
+            {/* Vista de Detalle de Proyecto Específico */}
             <AnimatePresence>
                 {showDetail === 'sisLabInventario' && (
-                    <div className="fixed inset-0 z-[70] flex items-center justify-center p-4">
+                    <div className="fixed inset-0 z-[70] bg-white dark:bg-slate-900 overflow-hidden">
                         <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            onClick={handleCloseDetail}
-                            className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
-                        />
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                            className="relative w-full max-w-7xl h-[90vh] bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-800"
+                            initial={{ opacity: 0, x: '100%' }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: '100%' }}
+                            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                            className="w-full h-full"
                         >
                             <ShowControlInventarioLab onClose={handleCloseDetail} darkMode={darkMode} />
                         </motion.div>
@@ -219,22 +213,16 @@ const Projects = ({ darkMode, setIsModalOpen }) => {
                 )}
             </AnimatePresence>
 
-            {/* Modal de Proyectos */}
+            {/* Vista de Proyectos */}
             <AnimatePresence>
                 {showModal && (
-                    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
+                    <div className="fixed inset-0 z-[60] bg-white dark:bg-slate-900 overflow-hidden">
                         <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            onClick={handleCloseModal}
-                            className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
-                        />
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                            className="relative w-full max-w-7xl bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-800"
+                            initial={{ opacity: 0, x: '100%' }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: '100%' }}
+                            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                            className="w-full h-full"
                         >
                             <ProjectsModal onClose={handleCloseModal} darkMode={darkMode} />
                         </motion.div>

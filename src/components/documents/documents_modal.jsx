@@ -40,7 +40,7 @@ const Documents = ({ onClose, darkMode }) => {
             type: "PDF",
             date: "Marzo 2024",
             icon: FileText,
-            url: "/documents/CV_Mathias_Flores.pdf"
+            url: "/documents/CV_2026.pdf"
         },
         {
             title: "Bachiller de Ingeniería de Sistemas",
