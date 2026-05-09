@@ -4,6 +4,7 @@ import { ArrowLeft, ExternalLink, Code, Globe, Database, Smartphone, FileText } 
 import { GithubIcon } from '../Icons';
 import ShowControlInventarioLab from './trabajos/show_controlInventarioLab';
 import ShowSisAOE from './trabajos/show_sisAOE';
+import ShowAppMovilListaCompras from './trabajos/show_appMovilListaCompras';
 
 const ProjectCard = ({ project, darkMode }) => {
     return (
@@ -112,7 +113,8 @@ const ProjectsModal = ({ onClose, darkMode }) => {
             tech: "React Native/Supabase",
             status: "Completado",
             url: "#",
-            github: "#"
+            github: "https://github.com/mafloresm22/appMiCarrito.git",
+            onVer: () => setActiveProject('appMovilListaCompras')
         },
         {
             title: "Sistema para la Gestión de Ventas en una Tienda",
@@ -151,6 +153,16 @@ const ProjectsModal = ({ onClose, darkMode }) => {
                         className="h-full"
                     >
                         <ShowSisAOE onClose={() => setActiveProject(null)} darkMode={darkMode} />
+                    </motion.div>
+                ) : activeProject === 'appMovilListaCompras' ? (
+                    <motion.div
+                        key="detailApp"
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -50 }}
+                        className="h-full"
+                    >
+                        <ShowAppMovilListaCompras onClose={() => setActiveProject(null)} darkMode={darkMode} />
                     </motion.div>
                 ) : (
                     <motion.div

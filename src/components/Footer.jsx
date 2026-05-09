@@ -1,5 +1,4 @@
 import React from 'react';
-import { Heart } from 'lucide-react';
 
 const Footer = ({ darkMode }) => {
     const currentYear = new Date().getFullYear();
@@ -19,7 +18,7 @@ const Footer = ({ darkMode }) => {
 
                     <div className="flex flex-col items-center md:items-end gap-4">
                         <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 font-bold">
-                            Hecho con <Heart size={16} className="text-red-500 fill-red-500" /> por Mathias Flores
+                            Hecho por Mathias Flores
                         </div>
                         <p className="text-xs text-slate-400 dark:text-slate-500 font-medium uppercase tracking-[0.2em]">
                             &copy; {currentYear} Todos los derechos reservados.

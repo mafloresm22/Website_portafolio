@@ -5,6 +5,7 @@ import { GithubIcon } from './Icons';
 import ProjectsModal from './projects/projects_pestaña';
 import ShowControlInventarioLab from './projects/trabajos/show_controlInventarioLab';
 import ShowSisAOE from './projects/trabajos/show_sisAOE';
+import ShowAppMovilListaCompras from './projects/trabajos/show_appMovilListaCompras';
 
 const projectsData = [
     {
@@ -28,8 +29,8 @@ const projectsData = [
         title: 'Aplicación Móvil de listas de compras',
         description: 'Solución móvil que permite gestionar listas de compras de manera colaborativa, integrando funcionalidades de busqueda de productos',
         image: '/images/appMovListaCompras/Inicio.jpeg',
-        github: 'https://github.com',
-        demo: 'https://demo.com',
+        github: 'https://github.com/mafloresm22/appMiCarrito.git',
+        detail: 'appMovListaCompras',
     }
 ];
 
@@ -222,6 +223,19 @@ const Projects = ({ darkMode, setIsModalOpen }) => {
                             className="w-full h-full"
                         >
                             <ShowSisAOE onClose={handleCloseDetail} darkMode={darkMode} />
+                        </motion.div>
+                    </div>
+                )}
+                {showDetail === 'appMovListaCompras' && (
+                    <div className="fixed inset-0 z-[70] bg-white dark:bg-slate-900 overflow-hidden">
+                        <motion.div
+                            initial={{ opacity: 0, x: '100%' }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: '100%' }}
+                            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                            className="w-full h-full"
+                        >
+                            <ShowAppMovilListaCompras onClose={handleCloseDetail} darkMode={darkMode} />
                         </motion.div>
                     </div>
                 )}

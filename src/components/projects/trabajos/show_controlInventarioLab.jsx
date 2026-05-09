@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { X, CheckCircle2, Database, Layout, ShieldCheck, Box, Users, ArrowRight } from 'lucide-react';
+import { X, CheckCircle2, Database } from 'lucide-react';
 import { GithubIcon } from '../../Icons';
 
 const ShowControlInventarioLab = ({ onClose, darkMode }) => {
